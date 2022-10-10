@@ -6,7 +6,7 @@ let imgList = ""
 let selectionOpen = false
 let gameActive = false
 let bingoActive = false
-
+let gameType = 16
 
 const gameBtnDisplay = document.getElementById("game-btn-container")
 const topicBtnDisplay = document.getElementById("topic-btn-container")
@@ -14,6 +14,10 @@ const cardsContainer = document.querySelector(".cards-container")
 const bingoContainer = document.querySelector(".bingo-container")
 const bingoSelectContainer = document.querySelector(".bingo-select-container")
 const bingoImageBoxes = document.querySelectorAll(".image-box")
+
+const bingoNine = document.querySelector(".nine")
+const bingoSixteen = document.querySelector(".sixteen")
+const bingoTwentyFive = document.querySelector(".twentyfive")
 
 
 const feelingsArr = ["./images/feelings/img1.png","./images/feelings/img2.png", "./images/feelings/img3.png", "./images/feelings/img4.png", "./images/feelings/img5.png", "./images/feelings/img6.png", "./images/feelings/img7.png", "./images/feelings/img8.png", "./images/feelings/img9.png","./images/feelings/img10.png"]
@@ -170,6 +174,7 @@ const clubactivitiesBtn = document.getElementById("clubactivities")
 const quickStart = document.getElementById("quick-start")
 const clearBtn = document.getElementById("clear")
 const renderBtn = document.getElementById("render-btn")
+const changeBtn = document.getElementById("change")
 
 feelingsBtn.addEventListener("click",() => beginSelection(feelingsArr))
 weatherBtn.addEventListener("click",() => beginSelection(weatherArr))
@@ -317,6 +322,34 @@ clearBtn.addEventListener("click",function(){
     clearAll()
 })
 
+changeBtn.addEventListener("click",function(){
+    if ( !bingoActive && !selectionOpen ) {
+    bingoImageBoxes.forEach( (x) => {
+        x.innerHTML = ""
+        x.classList.remove("drawn-image")
+    })
+    let allSelectImages = document.querySelectorAll(".bingo-select-image")
+    allSelectImages.forEach( (y) => {
+        y.classList.remove("used-image")
+    })    
+    if ( gameType === 16) {
+        gameType = 25
+        bingoSixteen.classList.add("hide-me")
+        bingoTwentyFive.classList.remove("hide-me")
+        changeBtn.textContent = 25
+    } else if ( gameType === 25 ) {
+        gameType = 9
+        bingoTwentyFive.classList.add("hide-me")
+        bingoNine.classList.remove("hide-me")
+        changeBtn.textContent = 9
+    } else if ( gameType === 9 ) {
+        gameType = 16
+        bingoNine.classList.add("hide-me")
+        bingoSixteen.classList.remove("hide-me")
+        changeBtn.textContent = 16
+    }
+}
+})
 let thisBox = ""
 function renderGame(arr){
     if ( !topicBtnDisplay.classList.contains("hide-me") ) {
