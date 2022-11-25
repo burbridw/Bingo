@@ -1,16 +1,11 @@
-* {
-    box-sizing: border-box;
-}
-
-body {
-    background: linear-gradient(90deg, rgba(10, 181, 233, 0.8), rgba(233, 218, 10, 0.4));
-}
-.everything {
-  height: 98vh;
-}
-img {
+html, body {
   height: 100%;
-  overflow: hidden;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  background: linear-gradient(90deg, rgba(10, 181, 233, 0.8), rgba(233, 218, 10, 0.4));
+  font-family: Tahoma, sans-serif;
 }
 
 #game-buttons {
@@ -24,7 +19,7 @@ img {
   width: 20%;
   border: 2px solid black;
   background-color: transparent;
-  border-radius: 5%;
+  border-radius: 10px;
   font-family: Tahoma, sans-serif;
   font-size: 2.5rem;
   transition: all 0.2s ease-in-out;
@@ -60,7 +55,7 @@ img {
   height: 3rem;
   background-color: transparent;
   border: 1px solid black;
-  border-radius: 5%;
+  border-radius: 10px;
   font-family: Tahoma, sans-serif;
   font-size: 2rem;
   transition: all 0.2s ease-in-out;
@@ -91,7 +86,7 @@ img {
     border: 1px solid black;
     justify-content: center;
     align-items: center;
-    border-radius: 15%;
+    border-radius: 10px;
     padding-top: 2px;
     padding-bottom: 2px;
 }
@@ -101,7 +96,7 @@ img {
   width: 22%;
   background-color: transparent;
   border: 2px solid black;
-  border-radius: 5%;
+  border-radius: 10px;
   font-family: Tahoma, sans-serif;
   font-size: 1.5rem;
   transition: all 0.2s ease-in-out;
@@ -118,19 +113,21 @@ img {
 .inner-btn-menu button:nth-of-type(3) {
   width: 50%;
 }
-
+.select-img {
+  height: 100%;
+  overflow: hidden;
+}
 .selected {
   box-shadow: 0 0 15px red;
   border-radius: 15%;
 }
 
-.cards-container {
+.game-container,.bingo-screen {
   background-color: white;
   position: absolute;
-  width: 90%;
-  height: 80%;
-  max-height: 640px;
-  top: 15%;
+  width: 98%;
+  height: 89%;
+  top: 10%;
   left: 50%;
   transform: translateX(-50%);
   border-radius: 10px;
@@ -138,44 +135,86 @@ img {
   flex-wrap: nowrap;
   padding: 0;
   margin: 0;
-  align-content: center;
-  justify-content: center;
+  align-items: center;
+  justify-content: space-around;
   overflow: hidden;
 }
-.bingo-container {
+.bingo-selection {
+  height: 98%;
+  width: 30%;
+  border: 1px solid black;
+  border-radius: 10px;
+  overflow: scroll;
+  display: flex;
+  justify-content: center;
+}
+.bingo-selection-grid {
+  width: 90%;
   height: 100%;
-  max-height: 640px;
+  margin-left: 10px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(15,1fr);
+}
+.bingo-selection-image {
+  height: 100%;
   width: 100%;
-  position: absolute;
+  max-height: 90px;
+  max-width: 120px;
+}
+.bingo-container {
+  width: 60%;
+  height: 98%;
   border: 1px solid black;
   border-radius: 10px;
   background-color: white;
   display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+.bingo-image-grid {
+  border: 1px solid black;
+  height: 78%;
+  width: 95%;
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  grid-template-rows: repeat(3,1fr);
+}
+.sixteen {
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(4, 1fr);
+}
+.twentyfive {
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: repeat(5, 1fr);
+}
+
+.bingo-grid-box {
+  border: 1px solid black;
+  display: flex;
   justify-content: center;
   align-items: center;
 }
-
-.image-grid {
-  width: 80%;
+.bingo-image {
   height: 100%;
-  max-height: 640px;
-  display: grid;
-  grid-template-columns: 0.9fr 0.9fr 0.9fr;
-  grid-template-rows: 1fr 1fr 1fr;
-  column-gap: 5px;
-  row-gap: 3px;
+  width: 100%;
+  max-height: 90px;
+  max-width: 120px;
 }
 
-.sixteen {
-  grid-template-columns: 0.9fr 0.9fr 0.9fr 0.9fr;
-  grid-template-rows: 1fr 1fr 1fr 1fr;
-  border: 1px solid black;
+.bingo-button-container {
+  height: 15%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
 }
-
-.twentyfive {
-  grid-template-columns: 0.9fr 0.9fr 0.9fr 0.9fr 0.9fr;
-  grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
-  border: 1px solid black;
+.bingo-ready {
+  background-color: black;
+  color: white;
+  height: 80%;
+  width: 40%;
+  font-size: 2rem;
 }
 
 .image-box {
@@ -192,43 +231,28 @@ img {
 }
 
 .sixteen img {
-  max-width: 150px;
-  max-height: 120px;
+  max-width: 110px;
+  max-height: 80px;
 }
 
 .twentyfive img {
-  max-width: 120px;
-  max-height: 100px;
-}
-.game-setup {
-  background-color: red;
+  max-width: 90px;
+  max-height: 70px;
 }
 
 
-.bingo-select-container {
-  position: absolute;
-  height: 100%;
-  max-height: 580px;
-  width: 100%;
-  background-color: white;
-  display: flex;
-  flex-wrap: wrap;
-  overflow: scroll;
+.selected-image {
+  background-color: green;
+  box-shadow: 0 0 5px 5px green
+}
+.selected-box {
+  border: 1px solid red;
 }
 
-.bingo-select-image-box{
-  width: 30%;
-  max-width: 280px;
-  height: 30%;
-  max-height: 200px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.bingo-screen {
+
 }
 
-.bingo-select-image {
-  width: auto;
-}
 
 .hide-me {
   display: none;
@@ -247,13 +271,6 @@ img {
 .conceal-menu:hover {
   height: 100%;
 }
-
-.used-image {
-  opacity: 20%;
-  background-color: lightgray;
-}
-
-.drawn-image {
-  background-color: green;
-  opacity: 90%;
+.warning {
+  box-shadow: 0 0 10px 5px red;
 }
