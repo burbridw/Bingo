@@ -1,6 +1,7 @@
 let activeArr = []
 let selectArr = []
 let answersArr = []
+let bingoArr = []
 let goBackBtn = ""
 let imgList = ""
 let selectionOpen = false
@@ -12,17 +13,22 @@ let selectedImage = ""
 let selectedBox = ""
 let boxSelected = false
 let imageSelected = false
+let imagesReady = 0
+let readyForBingo = false
+let gameLeader = false
+let currentBingoImage = 0
+let lang = "en"
+bingoImageSeen = false
 
 const gameBtnDisplay = document.getElementById("game-btn-container")
 const topicBtnDisplay = document.getElementById("topic-btn-container")
 const gameContainer = document.querySelector(".game-container")
+const bingoSelectionOuter = document.querySelector(".bingo-selection")
 const bingoContainer = document.querySelector(".bingo-container")
 const bingoSelection = document.querySelector(".bingo-selection-grid")
 const bingoGrid = document.querySelector(".bingo-image-grid")
 const bingoImageBoxes = document.querySelectorAll(".image-box")
-
-
-
+const bingoScreen = document.querySelector(".bingo-screen")
 
 const feelingsArr = ["./images/feelings/img1.png","./images/feelings/img2.png", "./images/feelings/img3.png", "./images/feelings/img4.png", "./images/feelings/img5.png", "./images/feelings/img6.png", "./images/feelings/img7.png", "./images/feelings/img8.png", "./images/feelings/img9.png","./images/feelings/img10.png"]
 const feelingsTextArr = ["fine", "good", "great", "happy", "sad", "tired", "sleepy", "busy", "hungry", "thirsty"]
@@ -124,9 +130,6 @@ const clubactivitiesTextArr = ["baseball team", "softball team", "basketball tea
 const allImagesArr = feelingsArr.concat(numbersArr).concat(weatherArr).concat(colorArr).concat(shapesArr).concat(sportsArr).concat(foodsArr).concat(dessertsArr).concat(drinksArr).concat(fruitsvegetablesArr).concat(ingredientsArr).concat(mealsArr).concat(tastesArr).concat(animalsArr).concat(seaanimalsArr).concat(bugsArr).concat(natureArr).concat(monthsArr).concat(seasonsArr).concat(timesofdayArr).concat(daysArr).concat(countriesArr).concat(familyArr).concat(peopleArr).concat(personalitiesArr).concat(actions1Arr).concat(pastactionsArr).concat(actions2Arr).concat(dailyactivitiesArr).concat(frequencyArr).concat(bodyArr).concat(clothesArr).concat(buildingsArr).concat(directionsArr).concat(locationsArr).concat(vehiclesArr).concat(schoolArr).concat(subjectsArr).concat(instrumentsArr).concat(stationaryArr).concat(commonitemsArr).concat(activitiesArr).concat(schooleventsArr).concat(yearlyeventsArr).concat(conditionsArr).concat(descriptionsArr).concat(jobsArr).concat(clubactivitiesArr)
 const allTextArr = feelingsTextArr.concat(numbersTextArr).concat(weatherTextArr).concat(colorTextArr).concat(shapesTextArr).concat(sportsTextArr).concat(foodsTextArr).concat(dessertsTextArr).concat(drinksTextArr).concat(fruitsvegetablesTextArr).concat(ingredientsTextArr).concat(mealsTextArr).concat(tastesTextArr).concat(animalsTextArr).concat(seaanimalsTextArr).concat(bugsTextArr).concat(natureTextArr).concat(monthsTextArr).concat(seasonsTextArr).concat(timesofdayTextArr).concat(daysTextArr).concat(countriesTextArr).concat(familyTextArr).concat(peopleTextArr).concat(personalitiesTextArr).concat(actions1TextArr).concat(pastactionsTextArr).concat(actions2TextArr).concat(dailyactivitiesTextArr).concat(frequencyTextArr).concat(bodyTextArr).concat(clothesTextArr).concat(buildingsTextArr).concat(directionsTextArr).concat(locationsTextArr).concat(vehiclesTextArr).concat(schoolTextArr).concat(subjectsTextArr).concat(instrumentsTextArr).concat(stationaryTextArr).concat(commonitemsTextArr).concat(activitiesTextArr).concat(schooleventsTextArr).concat(yearlyeventsTextArr).concat(conditionsTextArr).concat(descriptionsTextArr).concat(jobsTextArr).concat(clubactivitiesTextArr)
 
-
-
-
 const feelingsBtn = document.getElementById("feelings")
 const weatherBtn = document.getElementById("weather")
 const colorsBtn = document.getElementById("colors")
@@ -175,11 +178,135 @@ const descriptionsBtn = document.getElementById("descriptions")
 const jobsBtn = document.getElementById("jobs")
 const clubactivitiesBtn = document.getElementById("clubactivities")
 
-const quickStart = document.getElementById("quick-start")
+function language() {
+    if ( lang === "en" ) {
+        lang = "jpn"
+        feelingsBtn.textContent = "気分"
+        weatherBtn.textContent = "天気"
+        colorsBtn.textContent = "色"
+        sportsBtn.textContent = "スポーツ"
+        shapesBtn.textContent = "形"
+        foodsBtn.textContent = "食べ物"
+        drinksBtn.textContent = "飲み物"
+        dessertsBtn.textContent = "デザート"
+        fruitsvegetablesBtn.textContent = "果物と野菜"
+        ingredientsBtn.textContent = "食材"
+        mealsBtn.textContent = "食事"
+        tastesBtn.textContent = "味"
+        animalsBtn.textContent = "動物"
+        seaanimalsBtn.textContent = "海の生き物"
+        bugsBtn.textContent = "虫"
+        natureBtn.textContent = "自然"
+        monthsBtn.textContent = "月"
+        seasonsBtn.textContent = "季節"
+        timesofdayBtn.textContent = "一日の時間"
+        daysBtn.textContent = "曜日"
+        countriesBtn.textContent = "国"
+        familyBtn.textContent = "家族"
+        peopleBtn.textContent = "人"
+        personalitiesBtn.textContent = "性格など" 
+        actions1Btn.textContent = "動作など 1"
+        pastactionsBtn.textContent = "したこと"
+        actions2Btn.textContent = "動作など 2"
+        dailyactivitiesBtn.textContent = "一日の生活"
+        frequencyBtn.textContent = "頻度"
+        bodyBtn.textContent = "からだ"
+        clothesBtn.textContent = "衣類"
+        buildingsBtn.textContent = "建物など"
+        directionsBtn.textContent = "道案内"
+        locationsBtn.textContent = "位置"
+        vehiclesBtn.textContent = "乗り物"
+        schoolBtn.textContent = "学校"
+        subjectsBtn.textContent = "教科"
+        instrumentsBtn.textContent = "楽器"
+        stationaryBtn.textContent = "文房具"
+        commonitemsBtn.textContent = "日常生活"
+        activitiesBtn.textContent = "遊びなど"
+        schooleventsBtn.textContent = "学校行事"
+        yearlyeventsBtn.textContent = "年中行事"
+        conditionsBtn.textContent = "状態"
+        descriptionsBtn.textContent = "様子"
+        jobsBtn.textContent = "職業"
+        clubactivitiesBtn.textContent = "部活動"
+        document.getElementById("game-buttons").style.fontSize = "2rem"
+        clearBtn.style.fontSize = "2rem"
+        renderBtn.style.fontSize = "2rem"
+        clearBtn.textContent = "削除"
+        renderBtn.textContent = "スタート"
+        if ( !gameLeader ) {
+            readyBtn.textContent = "準備まだ"
+        }
+    } else {
+        lang = "en"
+        feelingsBtn.textContent = "Feelings"
+        weatherBtn.textContent = "Weather"
+        colorsBtn.textContent = "Colors"
+        sportsBtn.textContent = "Sports"
+        shapesBtn.textContent = "Shapes"
+        foodsBtn.textContent = "Food"
+        drinksBtn.textContent = "Drinks"
+        dessertsBtn.textContent = "Desserts"
+        fruitsvegetablesBtn.textContent = "Fruit & Veg"
+        ingredientsBtn.textContent = "Ingredients"
+        mealsBtn.textContent = "Meals"
+        tastesBtn.textContent = "Tastes"
+        animalsBtn.textContent = "Animals"
+        seaanimalsBtn.textContent = "Sea Animals"
+        bugsBtn.textContent = "Bugs"
+        natureBtn.textContent = "Nature"
+        monthsBtn.textContent = "Months"
+        seasonsBtn.textContent = "Seasons"
+        timesofdayBtn.textContent = "Times"
+        daysBtn.textContent = "Days"
+        countriesBtn.textContent = "Countries"
+        familyBtn.textContent = "Family"
+        peopleBtn.textContent = "People"
+        personalitiesBtn.textContent = "Personalities" 
+        actions1Btn.textContent = "Actions 1"
+        pastactionsBtn.textContent = "Past Actions"
+        actions2Btn.textContent = "Actions 2"
+        dailyactivitiesBtn.textContent = "Daily Activities"
+        frequencyBtn.textContent = "Frequency"
+        bodyBtn.textContent = "Body"
+        clothesBtn.textContent = "Clothes"
+        buildingsBtn.textContent = "Buildings"
+        directionsBtn.textContent = "Directions"
+        locationsBtn.textContent = "Locations"
+        vehiclesBtn.textContent = "Vehicles"
+        schoolBtn.textContent = "School"
+        subjectsBtn.textContent = "Subjects"
+        instrumentsBtn.textContent = "Instruments"
+        stationaryBtn.textContent = "Stationary"
+        commonitemsBtn.textContent = "Common Items"
+        activitiesBtn.textContent = "Activities"
+        schooleventsBtn.textContent = "School Events"
+        yearlyeventsBtn.textContent = "Yearly Events"
+        conditionsBtn.textContent = "Conditions"
+        descriptionsBtn.textContent = "Descriptions"
+        jobsBtn.textContent = "Jobs"
+        clubactivitiesBtn.textContent = "Club Activities"
+        clearBtn.textContent = "Clear All"
+        clearBtn.style.fontSize = "2.5rem"
+        renderBtn.style.fontSize = "2.5rem"
+        if ( !gameActive ) {
+            renderBtn.textContent = "Begin the Game"
+        } else {
+            renderBtn.textContent = "Reset"
+        }
+        if ( !readyForBingo && !gameLeader ) {
+            readyBtn.textContent = "NOT READY"
+        } else if ( readyForBingo && !gameLeader ) {
+            readyBtn.textContent = "READY"
+        }
+    }
+}
+
+const enJpn = document.getElementById("en-jpn")
 const clearBtn = document.getElementById("clear")
 const renderBtn = document.getElementById("render-btn")
 const changeBtn = document.getElementById("change")
 const readyBtn = document.querySelector(".bingo-ready")
+const leaderBtn = document.querySelector(".bingo-leader")
 
 feelingsBtn.addEventListener("click",() => beginSelection(feelingsArr))
 weatherBtn.addEventListener("click",() => beginSelection(weatherArr))
@@ -246,8 +373,12 @@ function renderSelect(targetDiv, arr){
     gameBtnDisplay.className = "hide-me"
     topicBtnDisplay.className = "hide-me"
     let currentDiv = document.getElementById(targetDiv)
-    currentDiv.innerHTML = `<div class="inner-btn-menu"><button id="selectall" onClick="selectAll()">All</button><button id="clearselection" onClick="selectClear()">Clear</button><button id="closewindow" onClick="passSelect()">Confirm and Go Back</button></div>`
-    for ( let i = 0; i < arr.length; i++) {
+    if ( lang === "en" ) {
+        currentDiv.innerHTML = `<div class="inner-btn-menu"><button id="selectall" onClick="selectAll()">All</button><button id="clearselection" onClick="selectClear()">Clear</button><button id="closewindow" onClick="passSelect()">Confirm and Go Back</button></div>`
+    } else {
+        currentDiv.innerHTML = `<div class="inner-btn-menu"><button id="selectall" onClick="selectAll()">全て</button><button id="clearselection" onClick="selectClear()">削除</button><button id="closewindow" onClick="passSelect()">承認して戻る</button></div>`
+    }
+        for ( let i = 0; i < arr.length; i++) {
     currentDiv.innerHTML += `<div class="img-box"><img class="select-img unselected" src="${arr[i]}"></div>`
     imgList = document.querySelectorAll(`.select-img`)
     imgList.forEach( (img) => {
@@ -304,13 +435,18 @@ function passSelect() {
     selectionOpen = false
     gameBtnDisplay.className = ""
     topicBtnDisplay.className = ""
-    
 }
+
+enJpn.addEventListener("click",language)
 
 renderBtn.addEventListener("click", function() {
     if (activeArr.length >= 1 && !gameActive) {
-    renderGame(activeArr)
-    renderBtn.textContent = "RESET"
+        renderGame(activeArr)
+        if ( lang === "en" ) {
+            renderBtn.textContent = "RESET"
+        } else {
+            renderBtn.textContent = "リセット"
+        }
     } else if ( gameActive ) {
         renderGame(activeArr)
     }
@@ -335,110 +471,130 @@ changeBtn.addEventListener("click",function(){
         bingoGrid.classList.add("sixteen")
         changeBtn.textContent = 16
     }
+    if ( gameActive && !bingoActive) {
+        renderGame(activeArr)
+    }
 })
 
-readyBtn.addEventListener("click",beginBingo)
+readyBtn.addEventListener("click",()=>{
+    if ( readyForBingo ) {
+        beginBingo()
+    } else if ( gameLeader ) {
+        nextImage()
+    }
+})
 
-
-activeArr = animalsArr
-renderGame(activeArr)
+leaderBtn.addEventListener("click",leadGame)
 
 function renderGame(arr){
     if ( !topicBtnDisplay.classList.contains("hide-me") ) {
         topicBtnDisplay.classList.add("hide-me")
     }
+    if ( !bingoScreen.classList.contains("reduced") ) {
+        bingoScreen.classList.add("reduced")
+    }
+    if ( bingoContainer.classList.contains("reduced") ) {
+        bingoContainer.classList.remove("reduced")
+        bingoSelectionOuter.classList.remove("reduced")
+    }
+    if ( bingoGrid.classList.contains("leader-window") ) {
+        bingoGrid.classList.remove("leader-window")
+    }
+    bingoScreen.innerHTML = ""
     selectionObj = {}
     selectedBox = ""
     selectedImage = ""
     boxSelected = false
     imageSelected = false
+    bingoImageSeen = false
+    imagesReady = 0
     for ( i of arr ) {
         selectionObj[i] = false
     }
-    renderBtn.textContent = "RESET"
+    readyForBingo = false
+    gameLeader = false
     gameActive = true
-    bingoSelection.innerHTML = ""
+    bingoActive = false
+    if ( lang === "en" ) {
+        readyBtn.textContent = "NOT READY"
+        renderBtn.textContent = "RESET"
+    } else {
+        readyBtn.textContent = "準備まだ"
+        renderBtn.textContent = "リセット"
+    }
+        bingoSelection.innerHTML = ""
     for ( let i = 0; i < activeArr.length; i++ ) {
         bingoSelection.innerHTML += `<div ><img class="bingo-selection-image" src="${arr[i]}"></div>`
     }
-
     bingoGrid.innerHTML = ""
     for ( let i = 0; i < gameType; i++ ) {
         bingoGrid.innerHTML += `<div class="bingo-grid-box empty"></div>`
     }
     gameContainer.classList.remove("reduced")
-
     let selectionImages = document.querySelectorAll(".bingo-selection-image")
     selectionImages.forEach( (x) => {
-        x.addEventListener("click",()=>{
-            inputImage = x.getAttribute("src")
-            if ( x.classList.contains("selected-image") && selectedBox === "" ) {
-                x.classList.remove("selected-image" )
-                imageSelected = false
-            } else if ( imageSelected && selectedBox === "") {
-                let deselect = document.querySelector(".selected-image")
-                deselect.classList.remove("selected-image")
-                imageSelected = false
-                if ( selectionObj[inputImage] === false ) {
-                    x.classList.add("selected-image")
-                    selectedImage = inputImage
-                    imageSelected = true
-                } else {
+        if ( !bingoActive ) {
+            x.addEventListener("click",()=>{
+                inputImage = x.getAttribute("src")
+                if ( x.classList.contains("selected-image") && selectedBox === "" ) {
+                    x.classList.remove("selected-image" )
+                    imageSelected = false
+                } else if ( imageSelected && selectedBox === "") {
+                    let deselect = document.querySelector(".selected-image")
+                    deselect.classList.remove("selected-image")
+                    imageSelected = false
+                    if ( selectionObj[inputImage] === false ) {
+                        x.classList.add("selected-image")
+                        selectedImage = inputImage
+                        imageSelected = true
+                    } else {
+                        let fullBoxes = document.querySelectorAll(".full")
+                        fullBoxes.forEach( (x)=> {
+                            let thisBox = x.firstChild
+                            if ( thisBox.getAttribute("src") === inputImage ) {
+                                x.classList.add("warning")
+                                setTimeout( ()=>{
+                                    x.classList.remove("warning")
+                                },1500)
+                            }
+                        })
+                    }
+                } else if ( selectionObj[inputImage] === false ) {
+                    if ( selectedBox === "" ) {
+                        selectedImage = inputImage
+                        if (selectionObj[selectedImage] === false) {
+                            x.classList.add("selected-image")
+                            imageSelected = true
+                        }
+                    } else if ( selectedBox != "" ) {
+                        selectedBox.innerHTML = `<img class="bingo-image" src="${inputImage}">`
+                        selectionObj[inputImage] = true
+                        checkReadyImages()
+                        selectedBox.classList.remove("selected-box")
+                        selectedBox.classList.remove("empty")
+                        selectedBox.classList.add("full")
+                        selectedBox = ""
+                        boxSelected = false
+                    }
+                } else if ( selectionObj[inputImage] === true ) {
                     let fullBoxes = document.querySelectorAll(".full")
                     fullBoxes.forEach( (x)=> {
                         let thisBox = x.firstChild
                         if ( thisBox.getAttribute("src") === inputImage ) {
                             x.classList.add("warning")
-                            console.log("this image is already being used")
                             setTimeout( ()=>{
                                 x.classList.remove("warning")
                             },1500)
                         }
                     })
                 }
-            } else if ( selectionObj[inputImage] === false ) {
-                if ( selectedBox === "" ) {
-                    selectedImage = inputImage
-                    console.log(selectedImage + " has been selected")
-                    if (selectionObj[selectedImage] === false) {
-                        console.log("the image has not been used")
-                        x.classList.add("selected-image")
-                        imageSelected = true
-                    }
-                } else if ( selectedBox != "" ) {
-                    console.log(selectedBox)
-                    console.log("there was a selected box")
-                    console.log(inputImage)
-                    selectedBox.innerHTML = `<img class="bingo-image" src="${inputImage}">`
-                    selectionObj[inputImage] = true
-                    selectedBox.classList.remove("selected-box")
-                    selectedBox.classList.remove("empty")
-                    selectedBox.classList.add("full")
-                    selectedBox = ""
-                    boxSelected = false
-                }
-            } else if ( selectionObj[inputImage] === true ) {
-                let fullBoxes = document.querySelectorAll(".full")
-                fullBoxes.forEach( (x)=> {
-                    let thisBox = x.firstChild
-                    if ( thisBox.getAttribute("src") === inputImage ) {
-                        x.classList.add("warning")
-                        console.log("this image is already being used")
-                        setTimeout( ()=>{
-                            x.classList.remove("warning")
-                        },1500)
-                    }
-                })
-            }
-        })
+            })
+        }
     })
-    
     let bingoImageBoxes = document.querySelectorAll(".bingo-grid-box")
     bingoImageBoxes.forEach( (x)=>{
         x.addEventListener("click",()=>{
-            console.log("clicked a box")
             if ( x.classList.contains("selected-box") && selectedImage === "" ) {
-                console.log("this box is already selected")
                 x.classList.remove("selected-box")
                 selectedBox = ""
                 boxSelected = false
@@ -449,25 +605,24 @@ function renderGame(arr){
                 selectedBox = x
             } else if ( x.classList.contains("empty") ) {
                 if ( selectedImage != "" && selectedBox === "" ) {
-                    console.log("there was an image")
                     x.innerHTML = `<img class="bingo-image" src="${selectedImage}">`
                     let deselect = document.querySelector(".selected-image")
                     deselect.classList.remove("selected-image")
                     x.classList.remove("empty")
                     x.classList.add("full")
                     selectionObj[selectedImage] = true
+                    checkReadyImages()
                     selectedImage = ""
                     imageSelected = false
                 } else if ( selectedImage === "" && selectedBox === "" ) {
-                    console.log("no image was selected")
                     selectedBox = x
                     x.classList.add("selected-box")
-                    console.log("a box has been selected")
                     boxSelected = true
                 }
             } else if ( x.classList.contains("full") ) {
                 let thisBox = x.firstChild
                 selectionObj[thisBox.getAttribute("src")] = false
+                checkReadyImages()
                 x.innerHTML = ""
                 x.classList.add("empty")
                 x.classList.remove("full")
@@ -477,15 +632,114 @@ function renderGame(arr){
 
 }
 
+function checkReadyImages() {
+    imagesReady = 0
+    for ( i in selectionObj ) {
+        if ( selectionObj[i] === true ) {
+            imagesReady++
+        }
+    }
+    if ( imagesReady === gameType ) {
+        readyForBingo = true
+        if ( lang === "en" ) {
+            readyBtn.textContent = "READY"
+        } else {
+            readyBtn.textContent = "準備OK"
+        }
+    } else {
+        readyForBingo = false
+        if ( lang === "en" ) {
+            readyBtn.textContent = "NOT READY"
+        } else {
+            readyBtn.textContent = "準備まだ"
+        }
+    }
+}
+
 function beginBingo() {
-    console.log(bingoGrid.children)
+    bingoActive = true
+    bingoSelectionOuter.classList.add("reduced")
+    bingoContainer.classList.add("reduced")
+    let tempArr = []
+    for ( let i = 0; i < bingoGrid.children.length; i++ ) {
+        tempArr.push(bingoGrid.children[i].innerHTML)
+    }
+    bingoGrid.innerHTML = ""
+    if ( gameType === 16 && !bingoScreen.classList.contains("screen-sixteen") ) {
+        bingoScreen.className = "bingo-screen screen-sixteen"
+    } else if ( gameType === 25 && !bingoScreen.classList.contains("screen-twentyfive") ) {
+        bingoScreen.className = "bingo-screen screen-twentyfive"
+    } else {
+        bingoScreen.className = "bingo-screen"
+    }
+    for ( let i = 0; i < gameType; i++ ) {
+        bingoScreen.innerHTML += `<div class="bingo-screen-grid-box">${tempArr[i]}</div>`
+    }
+    bingoScreen.classList.remove("reduced")
+    bingoGame()
+}
+
+function bingoGame() {
+    bingoActive = true
+    let allBingo = document.querySelectorAll(".bingo-screen-grid-box")
+    allBingo.forEach( (x)=>{
+        x.addEventListener("click",()=>{
+            if ( !x.classList.contains("selected-image") ) {
+                x.classList.add("selected-image")
+            } else {
+                x.classList.remove("selected-image")
+            }
+        })
+    })
+}
+
+function leadGame() {
+    gameLeader = true
+    bingoActive = true
+    currentBingoImage = 0
+    if ( bingoImageSeen ) {
+        let seenImages = document.querySelectorAll(".bingo-seen-image")
+        seenImages.forEach( (x) => {
+            x.classList.remove("bingo-seen-image")
+        })
+    }
+    bingoImageSeen = false
+    readyBtn.textContent = "NEXT IMAGE"
+    bingoGrid.innerHTML = ""
+    bingoGrid.classList.add("leader-window")
+    bingoArr = activeArr.slice(0,activeArr.length)
+    bingoArr = bingoArr.sort( ()=> {return 0.5 - Math.random() } )
+}
+
+function nextImage() {
+    if ( currentBingoImage < bingoArr.length ) {
+        bingoGrid.innerHTML = `<div class="leader-window"><img class="leader-image" src="${bingoArr[currentBingoImage]}"></div>`
+        let allSelectionImages = document.querySelectorAll(".bingo-selection-image")
+        allSelectionImages.forEach( (x) => {
+            if ( x.getAttribute("src") === bingoArr[currentBingoImage] ) {
+                x.classList.add("bingo-seen-image")
+                bingoImageSeen = true
+            }
+        })
+        currentBingoImage++
+        if ( currentBingoImage === bingoArr.length ) {
+            readyBtn.textContent = "GAME OVER"
+        }
+    }
 }
 
 function clearAll() {
     gameContainer.classList.add("reduced")
-    renderBtn.textContent = "Begin the Game"
-    let currenterDiv = document.getElementById("select-container")
-    currenterDiv.innerHTML = ""
+    if ( bingoGrid.classList.contains("leader-window") ) {
+        bingoGrid.classList.remove("leader-window")
+    }
+    if ( lang === "en" ) {
+        renderBtn.textContent = "Begin the Game"
+    } else {
+        renderBtn.textcontent = "スタート"
+    }
+    let selectDiv = document.getElementById("select-container")
+    selectDiv.innerHTML = ""
     bingoSelection.innerHTML = ""
     activeArr = []
     selectArr = []
@@ -496,6 +750,9 @@ function clearAll() {
     selectionObj = {}
     boxSelected = false
     imageSelected = false
+    bingoImageSeen = false
+    imagesReady = 0
+    currentBingoImage = 0
     topicBtnDisplay.classList.remove("hide-me")
     document.querySelectorAll(`.toggleOn`).forEach( (x) => {
     x.className = "toggleOff"
