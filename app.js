@@ -477,7 +477,7 @@ changeBtn.addEventListener("click",function(){
 })
 
 readyBtn.addEventListener("click",()=>{
-    if ( readyForBingo ) {
+    if ( readyForBingo && !gameLeader) {
         beginBingo()
     } else if ( gameLeader ) {
         nextImage()
@@ -704,6 +704,7 @@ function leadGame() {
         })
     }
     bingoImageSeen = false
+    readyForBingo = false
     readyBtn.textContent = "NEXT IMAGE"
     bingoGrid.innerHTML = ""
     bingoGrid.classList.add("leader-window")
