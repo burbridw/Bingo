@@ -178,114 +178,42 @@ const descriptionsBtn = document.getElementById("descriptions")
 const jobsBtn = document.getElementById("jobs")
 const clubactivitiesBtn = document.getElementById("clubactivities")
 
+const langObj = {
+    "Feelings" : "気分", "Weather" : "天気", "Colors" : "色", "Shapes" : "形", "Sports" : "スポーツ", "Foods" : "食べ物", "Desserts" : "デザート", "Drinks" : "飲み物", 
+    "Fruit and Veg" : "果物と野菜", "Ingredients" : "食材", "Meals" : "食事",  "Tastes" : "味など", "Animals" : "動物", "Sea Animals" : "海の生き物", "Bugs" : "虫", "Nature" : "自然", 
+    "Months" : "月", "Seasons" : "季節", "Times" : "一日の時間", "Days" : "曜日", "Countries" : "国", "Family" : "家族", "People" : "人", "Personalities" : "性格など", 
+    "Actions 1" : "動作など 1", "Past Actions" : "したこと", "Actions 2" : "動作など 2", "Daily Activities" : "一日の生活", "Frequency" : "頻度", "Body" : "からだ", "Clothes" : "衣類", 
+    "Buildings" : "建物など", "Directions" : "道案内", "Locations" : "位置", "Vehicles" : "乗り物", "School" : "学校", "Subjects" : "教科", "Instruments" : "楽器", 
+    "Stationary" : "文房具", "Common Items" : "日常生活", "Activities" : "遊びなど", "School Events" : "学校行事", "Yearly Events" : "年中行事", "Conditions" : "状態", 
+    "Descriptions" : "様子", "Jobs" : "職業", "Club Activities" : "部活動", "Clear All": "削除"
+}
+
+function getLangKey(obj, value) {
+    return Object.keys(obj).find(key => obj[key] === value)
+}
+
 function language() {
+    let allTopicButtons = document.querySelectorAll(".language")
+    allTopicButtons.forEach( (x)=>{
+        let enText = x.textContent
+        if ( lang === "en" ) {
+            x.textContent = langObj[enText]
+        } else {
+            x.textContent = getLangKey(langObj,enText)
+        }
+    })
     if ( lang === "en" ) {
         lang = "jpn"
-        feelingsBtn.textContent = "気分"
-        weatherBtn.textContent = "天気"
-        colorsBtn.textContent = "色"
-        sportsBtn.textContent = "スポーツ"
-        shapesBtn.textContent = "形"
-        foodsBtn.textContent = "食べ物"
-        drinksBtn.textContent = "飲み物"
-        dessertsBtn.textContent = "デザート"
-        fruitsvegetablesBtn.textContent = "果物と野菜"
-        ingredientsBtn.textContent = "食材"
-        mealsBtn.textContent = "食事"
-        tastesBtn.textContent = "味"
-        animalsBtn.textContent = "動物"
-        seaanimalsBtn.textContent = "海の生き物"
-        bugsBtn.textContent = "虫"
-        natureBtn.textContent = "自然"
-        monthsBtn.textContent = "月"
-        seasonsBtn.textContent = "季節"
-        timesofdayBtn.textContent = "一日の時間"
-        daysBtn.textContent = "曜日"
-        countriesBtn.textContent = "国"
-        familyBtn.textContent = "家族"
-        peopleBtn.textContent = "人"
-        personalitiesBtn.textContent = "性格など" 
-        actions1Btn.textContent = "動作など 1"
-        pastactionsBtn.textContent = "したこと"
-        actions2Btn.textContent = "動作など 2"
-        dailyactivitiesBtn.textContent = "一日の生活"
-        frequencyBtn.textContent = "頻度"
-        bodyBtn.textContent = "からだ"
-        clothesBtn.textContent = "衣類"
-        buildingsBtn.textContent = "建物など"
-        directionsBtn.textContent = "道案内"
-        locationsBtn.textContent = "位置"
-        vehiclesBtn.textContent = "乗り物"
-        schoolBtn.textContent = "学校"
-        subjectsBtn.textContent = "教科"
-        instrumentsBtn.textContent = "楽器"
-        stationaryBtn.textContent = "文房具"
-        commonitemsBtn.textContent = "日常生活"
-        activitiesBtn.textContent = "遊びなど"
-        schooleventsBtn.textContent = "学校行事"
-        yearlyeventsBtn.textContent = "年中行事"
-        conditionsBtn.textContent = "状態"
-        descriptionsBtn.textContent = "様子"
-        jobsBtn.textContent = "職業"
-        clubactivitiesBtn.textContent = "部活動"
         document.getElementById("game-buttons").style.fontSize = "2rem"
         clearBtn.style.fontSize = "2rem"
         renderBtn.style.fontSize = "2rem"
-        clearBtn.textContent = "削除"
+        
         renderBtn.textContent = "スタート"
         if ( !gameLeader ) {
             readyBtn.textContent = "準備まだ"
         }
     } else {
         lang = "en"
-        feelingsBtn.textContent = "Feelings"
-        weatherBtn.textContent = "Weather"
-        colorsBtn.textContent = "Colors"
-        sportsBtn.textContent = "Sports"
-        shapesBtn.textContent = "Shapes"
-        foodsBtn.textContent = "Food"
-        drinksBtn.textContent = "Drinks"
-        dessertsBtn.textContent = "Desserts"
-        fruitsvegetablesBtn.textContent = "Fruit & Veg"
-        ingredientsBtn.textContent = "Ingredients"
-        mealsBtn.textContent = "Meals"
-        tastesBtn.textContent = "Tastes"
-        animalsBtn.textContent = "Animals"
-        seaanimalsBtn.textContent = "Sea Animals"
-        bugsBtn.textContent = "Bugs"
-        natureBtn.textContent = "Nature"
-        monthsBtn.textContent = "Months"
-        seasonsBtn.textContent = "Seasons"
-        timesofdayBtn.textContent = "Times"
-        daysBtn.textContent = "Days"
-        countriesBtn.textContent = "Countries"
-        familyBtn.textContent = "Family"
-        peopleBtn.textContent = "People"
-        personalitiesBtn.textContent = "Personalities" 
-        actions1Btn.textContent = "Actions 1"
-        pastactionsBtn.textContent = "Past Actions"
-        actions2Btn.textContent = "Actions 2"
-        dailyactivitiesBtn.textContent = "Daily Activities"
-        frequencyBtn.textContent = "Frequency"
-        bodyBtn.textContent = "Body"
-        clothesBtn.textContent = "Clothes"
-        buildingsBtn.textContent = "Buildings"
-        directionsBtn.textContent = "Directions"
-        locationsBtn.textContent = "Locations"
-        vehiclesBtn.textContent = "Vehicles"
-        schoolBtn.textContent = "School"
-        subjectsBtn.textContent = "Subjects"
-        instrumentsBtn.textContent = "Instruments"
-        stationaryBtn.textContent = "Stationary"
-        commonitemsBtn.textContent = "Common Items"
-        activitiesBtn.textContent = "Activities"
-        schooleventsBtn.textContent = "School Events"
-        yearlyeventsBtn.textContent = "Yearly Events"
-        conditionsBtn.textContent = "Conditions"
-        descriptionsBtn.textContent = "Descriptions"
-        jobsBtn.textContent = "Jobs"
-        clubactivitiesBtn.textContent = "Club Activities"
-        clearBtn.textContent = "Clear All"
         clearBtn.style.fontSize = "2.5rem"
         renderBtn.style.fontSize = "2.5rem"
         if ( !gameActive ) {
@@ -755,7 +683,8 @@ function clearAll() {
     imagesReady = 0
     currentBingoImage = 0
     topicBtnDisplay.classList.remove("hide-me")
-    document.querySelectorAll(`.toggleOn`).forEach( (x) => {
-    x.className = "toggleOff"
+    document.querySelectorAll(".toggleOn").forEach( (x) => {
+        x.classList.remove("toggleOn")
+        x.classList.add("toggleOff")
     })
 }
