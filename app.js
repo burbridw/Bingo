@@ -38,8 +38,8 @@ const weatherArr = ["./images/weather/img1.png","./images/weather/img2.png", "./
 const weatherTextArr = ["sunny", "cloudy", "rainy", "snowy", "cold", "hot"]
 const colorArr = ["./images/colours/img1.png","./images/colours/img2.png", "./images/colours/img3.png", "./images/colours/img4.png", "./images/colours/img5.png", "./images/colours/img6.png", "./images/colours/img7.png", "./images/colours/img8.png", "./images/colours/img9.png","./images/colours/img10.png"]
 const colorTextArr = ["black", "blue", "brown", "green", "orange", "pink", "purple", "red", "white", "yellow"]
-const shapesArr = ["./images/shapes/img1.png","./images/shapes/img2.png", "./images/shapes/img3.png", "./images/shapes/img4.png", "./images/shapes/img5.png", "./images/shapes/img6.png", "./images/shapes/img7.png", "./images/shapes/img8.png"]
-const shapesTextArr = ["circle", "cross", "diamond", "heart", "rectangle", "square", "star", "triangle"]
+const shapesArr = ["./images/shapes/img1.png","./images/shapes/img2.png", "./images/shapes/img3.png", "./images/shapes/img4.png", "./images/shapes/img5.png", "./images/shapes/img6.png", "./images/shapes/img7.png", "./images/shapes/img8.png", "./images/shapes/img9.png", "./images/shapes/img10.png", "./images/shapes/img11.png", "./images/shapes/img12.png", "./images/shapes/img13.png", "./images/shapes/img14.png", "./images/shapes/img15.png", "./images/shapes/img16.png", "./images/shapes/img17.png", "./images/shapes/img18.png", "./images/shapes/img19.png", "./images/shapes/img20.png", "./images/shapes/img21.png", "./images/shapes/img22.png", "./images/shapes/img23.png", "./images/shapes/img24.png"]
+const shapesTextArr = ["blue circle", "pink cross", "yellow diamond", "purple heart", "blue rectangle", "pink square", "yellow star", "purple triangle", "red circle", "green cross", "orange diamond", "black heart", "red rectangle", "green square", "orange star", "black triangle", "white circle", "light blue cross", "brown diamond", "grey heart", "white rectangle", "light blue square", "brown star", "grey triangle"]
 const sportsArr = ["./images/sports/img1.png","./images/sports/img2.png", "./images/sports/img3.png", "./images/sports/img4.png", "./images/sports/img5.png", "./images/sports/img6.png", "./images/sports/img7.png", "./images/sports/img8.png","./images/sports/img9.png","./images/sports/img10.png","./images/sports/img11.png","./images/sports/img12.png","./images/sports/img13.png"]
 const sportsTextArr = ["baseball", "softball", "basketball", "volleyball", "dodgeball", "soccer", "tennis", "table tennis", "badminton", "track and field", "swimming", "skating", "skiing"]
 const foodsArr = ["./images/foods/img1.png","./images/foods/img2.png", "./images/foods/img3.png", "./images/foods/img4.png", "./images/foods/img5.png", "./images/foods/img6.png", "./images/foods/img7.png", "./images/foods/img8.png", "./images/foods/img9.png", "./images/foods/img10.png", "./images/foods/img11.png", "./images/foods/img12.png", "./images/foods/img13.png", "./images/foods/img14.png", "./images/foods/img15.png", "./images/foods/img16.png", "./images/foods/img17.png", "./images/foods/img18.png", "./images/foods/img19.png", "./images/foods/img20.png", "./images/foods/img21.png", "./images/foods/img22.png", "./images/foods/img23.png", "./images/foods/img24.png", "./images/foods/img25.png"]
@@ -207,8 +207,11 @@ function language() {
         document.getElementById("game-buttons").style.fontSize = "2rem"
         clearBtn.style.fontSize = "2rem"
         renderBtn.style.fontSize = "2rem"
-        
-        renderBtn.textContent = "スタート"
+        if ( gameActive ) {
+            renderBtn.textContent = "リセっト"
+        } else {
+            renderBtn.textContent = "スタート"
+        }
         if ( !gameLeader ) {
             readyBtn.textContent = "準備まだ"
         }
