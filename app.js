@@ -532,8 +532,13 @@ function renderGame(arr){
             } else if ( boxSelected && selectedImage === "" ) {
                 let deselect = document.querySelector(".selected-box")
                 deselect.classList.remove("selected-box")
-                x.classList.add("selected-box")
-                selectedBox = x
+                selectedBox = ""
+                boxSelected = false
+                if ( !x.classList.contains("full") ) {
+                    x.classList.add("selected-box")
+                    selectedBox = x
+                    boxSelected = true
+                }
             } else if ( x.classList.contains("empty") ) {
                 if ( selectedImage != "" && selectedBox === "" ) {
                     x.innerHTML = `<img class="bingo-image" src="${selectedImage}">`
