@@ -455,7 +455,7 @@ function renderGame(arr){
     }
         bingoSelection.innerHTML = ""
     for ( let i = 0; i < activeArr.length; i++ ) {
-        bingoSelection.innerHTML += `<div ><img class="bingo-selection-image" src="${arr[i]}"></div>`
+        bingoSelection.innerHTML += `<div class="bingo-selection-box"><img class="bingo-selection-image" src="${arr[i]}"></div>`
     }
     bingoGrid.innerHTML = ""
     for ( let i = 0; i < gameType; i++ ) {
