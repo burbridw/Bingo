@@ -374,6 +374,7 @@ function passSelect() {
 
 enJpn.addEventListener("click",language)
 
+
 renderBtn.addEventListener("click", function() {
     if (activeArr.length >= 1 && !gameActive) {
         renderGame(activeArr)
@@ -411,6 +412,7 @@ changeBtn.addEventListener("click",function(){
     }
 })
 
+
 readyBtn.addEventListener("click",()=>{
     if ( readyForBingo && !gameLeader) {
         beginBingo()
@@ -420,6 +422,17 @@ readyBtn.addEventListener("click",()=>{
 })
 
 leaderBtn.addEventListener("click",leadGame)
+
+function specialSixteen() {
+    gameType = 16
+    bingoGrid.classList.add("sixteen")
+    changeBtn.textContent = 16
+}
+
+specialSixteen()
+language()
+activeArr = christmasArr.slice(0,christmasArr.length)
+renderGame(activeArr)
 
 function renderGame(arr){
     if ( !topicBtnDisplay.classList.contains("hide-me") ) {

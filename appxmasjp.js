@@ -374,6 +374,10 @@ function passSelect() {
 
 enJpn.addEventListener("click",language)
 
+language()
+activeArr = christmasArr.slice(0,christmasArr.length)
+renderGame(activeArr)
+
 renderBtn.addEventListener("click", function() {
     if (activeArr.length >= 1 && !gameActive) {
         renderGame(activeArr)
