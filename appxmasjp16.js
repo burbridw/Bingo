@@ -618,6 +618,8 @@ function beginBingo() {
         tempArr.push(bingoGrid.children[i].innerHTML)
     }
     bingoGrid.innerHTML = ""
+    bingoScreen.innerHTML = ""
+    bingoScreen.className = "bingo-screen reduced"
     if ( gameType === 16 && !bingoScreen.classList.contains("screen-sixteen") ) {
         bingoScreen.className = "bingo-screen screen-sixteen"
     } else if ( gameType === 25 && !bingoScreen.classList.contains("screen-twentyfive") ) {
@@ -628,7 +630,9 @@ function beginBingo() {
     for ( let i = 0; i < gameType; i++ ) {
         bingoScreen.innerHTML += `<div class="bingo-screen-grid-box">${tempArr[i]}</div>`
     }
-    bingoScreen.classList.remove("reduced")
+    if ( bingoScreen.classList.contains("reduced") ) {
+        bingoScreen.classList.remove("reduced")
+    }
     bingoGame()
 }
 
@@ -690,7 +694,7 @@ function clearAll() {
     if ( lang === "en" ) {
         renderBtn.textContent = "Begin the Game"
     } else {
-        renderBtn.textcontent = "スタート"
+        renderBtn.textContent = "スタート"
     }
     let selectDiv = document.getElementById("select-container")
     selectDiv.innerHTML = ""
