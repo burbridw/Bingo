@@ -30,7 +30,8 @@ html, body {
   }
 }
 #game-buttons button:hover {
-  background-color: yellow;
+  background-color: black;
+  color: white;
 }
 #game-buttons button:nth-of-type(3) {
   width: 50%;
@@ -58,7 +59,8 @@ html, body {
   transition: all 0.2s ease-in-out;
 }
 #topic-buttons button:hover {
-  background-color: yellow;
+  background-color: black;
+  color: white;
 }
 .inner-btn-menu {
   display: flex;
@@ -103,7 +105,8 @@ html, body {
   }
 }
 .inner-btn-menu button:hover {
-  background-color: yellow;
+  background-color: black;
+  color: white; 
 }
 .inner-btn-menu button:nth-of-type(3) {
   width: 50%;

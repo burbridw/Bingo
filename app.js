@@ -569,7 +569,6 @@ function renderGame(arr){
             }
         })
     })
-
 }
 
 function checkReadyImages() {
